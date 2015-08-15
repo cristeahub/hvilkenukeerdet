@@ -1,0 +1,7 @@
+[package]
+name = "uke"
+version = "0.1.0"
+authors = ["Christoffer Tønnessen <christoffer.tonnessen@gmail.com>"]
+
+[dependencies]
+hyper = "0.6.9"
