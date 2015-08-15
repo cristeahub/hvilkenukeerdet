@@ -12,20 +12,15 @@ fn main() {
     let mut res = client
                     .get(WEEKDAY_WEBSITE)
                     .header(Connection::close())
-                    .send().unwrap();
+                    .send()
+                    .unwrap();
 
     let mut body = String::new();
     res.read_to_string(&mut body).unwrap();
 
-    let parse: Vec<&str> = body
-                            .rsplitn(2, "<body>")
-                            .collect();
+    let body_index = body.find("<body>\n").unwrap() + "<body>\n".len();
+    let break_index = body.find("<br />").unwrap();
 
-    let week_number: Vec<&str> = parse[0].matches(char::is_numeric).collect();
-
-    if week_number.len() > 1 {
-        println!("{}{}", week_number[0], week_number[1]);
-    } else {
-        println!("{}", week_number[0]);
-    }
+    let week_number = &body[body_index..break_index];
+    println!("{}", week_number);
 }
