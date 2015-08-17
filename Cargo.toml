@@ -5,3 +5,4 @@ authors = ["Christoffer Tønnessen <christoffer.tonnessen@gmail.com>"]
 
 [dependencies]
 hyper = "0.6.9"
+chrono = "0.2"
