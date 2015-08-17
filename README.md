@@ -16,6 +16,7 @@ Simply run `uke` in your terminal!
 
 Run `make install` and you will conveniently get your executable put in
 `/usr/local/bin`. After this you will be able to run `uke` in your terminal.
+You need rust installed to be able to do this, see [the official rust webpage](https://www.rust-lang.org/).
 
 ## Hvilk..what?
 

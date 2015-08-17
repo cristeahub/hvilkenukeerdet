@@ -13,5 +13,5 @@ release:
 	cargo build --release
 
 .PHONY: install
-install:
-	cp release/uke /usr/local/bin/
+install: release
+	cp target/release/uke /usr/local/bin/
