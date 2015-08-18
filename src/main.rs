@@ -6,6 +6,11 @@ use hyper::header::Connection;
 
 static WEEKDAY_WEBSITE: &'static str = "http://www.hvilkenukeerdet.no";
 
+fn print_help() {
+    println!("`uke` gives the current week number.
+             `uke <number>` gives you the range for that week number");
+}
+
 fn main() {
     let client = Client::new();
 
