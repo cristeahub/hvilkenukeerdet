@@ -10,7 +10,12 @@ This simle tool lets you figure that out!
 
 ## How?
 
-Simply run `uke` in your terminal!
+Simply run `uke` in your terminal to get the current week number!
+
+#### Week number range
+
+If you want to know what dates a given week number includes, simply run `uke <week_number>`
+and you will get this year's dates for that week number.
 
 ## Installation
 
