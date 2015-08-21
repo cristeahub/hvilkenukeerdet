@@ -14,27 +14,6 @@ fn print_help() {
              `uke <number>` gives you the range for that week number");
 }
 
-fn parse_string_to_int(s: String) -> usize {
-    let mut res: usize = 0;
-    let bytes = s.into_bytes();
-    let b_len = bytes.len();
-    for i in 0..b_len {
-        // 48 is the byte number for the string "0"
-        let natural_number = (bytes[(b_len-1) - i] as usize) - 48;
-        if i > 0 {
-            res += i * 10 * natural_number
-        } else {
-            res += natural_number;
-        }
-    }
-
-    if res > 52 {
-        return 0;
-    } else {
-        return res;
-    }
-}
-
 fn show_week_period_for_week_number(w: usize) {
     let year = Local::now().year();
     let mut start_date = UTC.ymd(year, 1, 1).and_hms(1,0,0);
@@ -70,12 +49,16 @@ fn show_week_period_for_week_number(w: usize) {
 
 fn main() {
     if let Some(arg1) = env::args().nth(1) {
-        let week_number = parse_string_to_int(arg1);
-        if week_number == 0 {
-            print_help();
-        } else {
-            show_week_period_for_week_number(week_number);
+        match arg1.parse::<usize>() {
+            Ok(week_number) =>
+                if week_number >= 1 && week_number <= 52 {
+                    show_week_period_for_week_number(week_number);
+                    return;
+                },
+            _ => {} ,
         }
+
+        print_help();
     } else {
         let client = Client::new();
 
