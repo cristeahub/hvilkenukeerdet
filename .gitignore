@@ -10,4 +10,4 @@
 target
 
 # Vim
-*.sw
+*.sw*
