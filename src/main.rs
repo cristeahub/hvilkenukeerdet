@@ -83,7 +83,9 @@ fn main() {
                         .get(WEEKDAY_WEBSITE)
                         .header(Connection::close())
                         .send()
-                        .unwrap();
+                        .unwrap_or_else(|why| {
+                            panic!("Error fetching week number, make sure you have an internet connection");
+                        });
 
         let mut body = String::new();
         res.read_to_string(&mut body).unwrap();
