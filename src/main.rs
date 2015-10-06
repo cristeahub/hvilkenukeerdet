@@ -53,6 +53,30 @@ fn show_week_period_for_week_number(w: usize, year: i32) {
             );
 }
 
+fn get_week_number() -> isize {
+    let client = Client::new();
+
+    let mut res = client
+                    .get(WEEKDAY_WEBSITE)
+                    .header(Connection::close())
+                    .send()
+                    .unwrap_or_else(|why| {
+                        panic!("Error fetching week number, make sure you have an internet connection");
+                    });
+
+    let mut body = String::new();
+    res.read_to_string(&mut body).unwrap();
+
+    let body_index = body.find("<body>\n").unwrap() + "<body>\n".len();
+    let break_index = body.find("<br />").unwrap();
+    let week_number = &body[body_index..break_index];
+
+    return match week_number.parse::<isize>() {
+        Ok(num) => num,
+        _ => -1,
+    };
+}
+
 fn main() {
     let year = Local::now().year();
 
@@ -69,23 +93,6 @@ fn main() {
 
         print_help();
     } else {
-        let client = Client::new();
-
-        let mut res = client
-                        .get(WEEKDAY_WEBSITE)
-                        .header(Connection::close())
-                        .send()
-                        .unwrap_or_else(|why| {
-                            panic!("Error fetching week number, make sure you have an internet connection");
-                        });
-
-        let mut body = String::new();
-        res.read_to_string(&mut body).unwrap();
-
-        let body_index = body.find("<body>\n").unwrap() + "<body>\n".len();
-        let break_index = body.find("<br />").unwrap();
-
-        let week_number = &body[body_index..break_index];
-        println!("{}", week_number);
+        println!("{}", get_week_number());
     }
 }
