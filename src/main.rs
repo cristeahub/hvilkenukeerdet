@@ -11,7 +11,7 @@ static WEEKDAY_WEBSITE: &'static str = "http://www.hvilkenukeerdet.no";
 
 fn print_help() {
     println!("`uke` gives the current week number.
-             `uke <number>` gives you the range for that week number");
+              `uke <number>` gives you the range for that week number");
 }
 
 fn is_leap_year(year: i32) -> bool {
@@ -20,25 +20,21 @@ fn is_leap_year(year: i32) -> bool {
 
 fn find_num_of_weeks_this_year(year: i32) -> usize {
     let last_day_of_year = UTC.ymd(year, 12, 31);
-    if last_day_of_year.weekday() == Weekday::Thu ||
-        (last_day_of_year.weekday() == Weekday::Fri &&
-         is_leap_year(year)) {
-        return 53;
-    } else {
-        return 52;
-    }
+    return match last_day_of_year.weekday() {
+        Weekday::Thu | Weekday::Fri if is_leap_year(year) => 53,
+        _ => 52,
+    };
 }
 
 fn show_week_period_for_week_number(w: usize, year: i32) {
     let mut start_date = UTC.ymd(year, 1, 1);
 
-    // week 1 is defined by the first week with a thursday
-    // in a year
+    /* week 1 is defined by the first week with a thursday in a year */
 
     let jan_1_week_day = start_date.weekday().number_from_monday();
     if jan_1_week_day > 4 {
         /* this week has no thursday */
-        /* the calculation will give the date of monday in the first week*/
+        /* the calculation will give the date of monday in the first week */
         start_date = UTC.ymd(year, 1, (1 + 8-jan_1_week_day));
     } else {
         /* start at this week's first day */
