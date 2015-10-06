@@ -96,3 +96,12 @@ fn main() {
         println!("{}", get_week_number());
     }
 }
+
+#[test]
+fn week_number_should_be_between_1_and_53() {
+    if let 1...53 = get_week_number() {
+        assert!(true, "Week number is between 1 and 53");
+    } else {
+        assert!(false, "Week number is not between 1 and 53");
+    }
+}
