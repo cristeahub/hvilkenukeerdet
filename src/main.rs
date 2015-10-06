@@ -20,13 +20,10 @@ fn is_leap_year(year: i32) -> bool {
 
 fn find_num_of_weeks_this_year(year: i32) -> usize {
     let last_day_of_year = UTC.ymd(year, 12, 31);
-    if last_day_of_year.weekday() == Weekday::Thu ||
-        (last_day_of_year.weekday() == Weekday::Fri &&
-         is_leap_year(year)) {
-        return 53;
-    } else {
-        return 52;
-    }
+    return match last_day_of_year.weekday() {
+        Weekday::Thu | Weekday::Fri if is_leap_year(year) => 53,
+        _ => 52,
+    };
 }
 
 fn show_week_period_for_week_number(w: usize, year: i32) {
