@@ -88,7 +88,7 @@ fn main() {
                     show_week_period_for_week_number(week_number, year);
                     return;
                 },
-            _ => {} ,
+            _ => {},
         }
 
         print_help();
