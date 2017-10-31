@@ -29,7 +29,7 @@ fn find_num_of_weeks_this_year(year: i32) -> usize {
 fn show_week_period_for_week_number(w: usize, year: i32) {
     let mut start_date = UTC.ymd(year, 1, 1);
 
-    /* week 1 is defined by the first week with a thursday in a year */
+    /* week 1 is defined as the first week with a thursday in a year */
 
     let jan_1_week_day = start_date.weekday().number_from_monday();
     if jan_1_week_day > 4 {
